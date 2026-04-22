@@ -13,8 +13,8 @@
             --bg-color: #0d0d0d;
             --card-bg: #1a1a1a;
             --accent-warm: #ff8c42; 
-            --accent-light-warm: #ffb347; /* Naranja amarillento */
-            --dev-gray: #cccccc; /* Gris claro */
+            --accent-light-warm: #ffb347; 
+            --dev-gray: #cccccc; 
             --text-main: #e0e0e0;
             --text-dim: #a0a0a0;
             --transition: all 0.3s ease;
@@ -34,19 +34,19 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 40px 20px;
+            padding: 40px 15px; /* Reducido un poco el padding lateral */
         }
 
         /* --- Encabezado --- */
         header {
             text-align: center;
             max-width: 600px;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             width: 100%;
         }
 
         h1 {
-            font-size: 2.8rem;
+            font-size: clamp(1.8rem, 8vw, 2.8rem); /* Tamaño fluido: se adapta entre 1.8 y 2.8rem */
             letter-spacing: 2px;
             margin-bottom: 15px;
             text-transform: uppercase;
@@ -61,24 +61,25 @@
             font-weight: 300;
         }
 
-        /* --- Sección Sobre Mí (Efecto Tarjeta Elevada) --- */
+        /* --- Sección Sobre Mí --- */
         .about-section {
             background: #1e1e1e; 
-            padding: 25px;
+            padding: 20px;
             border-radius: 12px;
             border-left: 4px solid var(--accent-light-warm);
             line-height: 1.6;
-            box-shadow: 10px 10px 25px rgba(255, 179, 71, 0.1); 
+            box-shadow: 10px 10px 25px rgba(255, 179, 71, 0.05); 
             transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+            width: 100%;
         }
 
         .about-section:hover {
-            transform: translateY(-8px) translateX(-5px);
-            box-shadow: 15px 20px 35px rgba(255, 179, 71, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 15px 20px 35px rgba(255, 179, 71, 0.15);
         }
 
         .about-section h2 {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--accent-light-warm);
             margin-bottom: 10px;
             text-transform: uppercase;
@@ -96,7 +97,7 @@
             max-width: 500px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
             margin-top: 10px;
         }
 
@@ -106,49 +107,54 @@
             background: var(--card-bg);
             text-decoration: none;
             color: var(--text-main);
-            padding: 15px;
+            padding: 12px;
             border-radius: 15px;
             border: 1px solid #333;
             transition: var(--transition);
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
+            transform: scale(1.02);
             border-color: var(--accent-light-warm);
-            box-shadow: 0 10px 20px rgba(255, 179, 71, 0.15);
             background: #252525;
         }
 
         .project-card img {
-            width: 60px;
-            height: 60px;
+            width: 50px; /* Un poco más pequeños en móvil */
+            height: 50px;
             border-radius: 10px;
-            margin-right: 20px;
+            margin-right: 15px;
             object-fit: cover;
             background: #333;
+            flex-shrink: 0; /* Evita que la imagen se aplaste */
         }
 
         .project-card span {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Corta el texto si es muy largo en pantallas mini */
         }
 
         /* --- Redes Sociales --- */
         .social-dropdown {
-            margin-top: 50px;
+            margin-top: 40px;
             position: relative;
-            width: 220px;
+            width: 100%;
+            max-width: 250px;
         }
 
         .dropdown-btn {
             width: 100%;
-            padding: 12px;
+            padding: 15px; /* Más grande para el dedo */
             background: transparent;
             border: 1px solid var(--accent-light-warm);
             color: var(--accent-light-warm);
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
+            font-size: 1rem;
             transition: var(--transition);
         }
 
@@ -160,30 +166,36 @@
         .dropdown-content {
             display: none;
             position: absolute;
-            top: 110%;
+            bottom: 110%; /* Aparece hacia ARRIBA para que no se corte al final de la página */
             left: 0;
             width: 100%;
             background: var(--card-bg);
             border-radius: 8px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            box-shadow: 0 -8px 16px rgba(0,0,0,0.5);
             z-index: 10;
+            border: 1px solid #333;
         }
 
         .dropdown-content a {
             color: var(--text-main);
-            padding: 12px;
+            padding: 15px;
             text-decoration: none;
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             transition: var(--transition);
+            border-bottom: 1px solid #222;
         }
 
-        .dropdown-content a:hover {
-            background: #333;
-            color: var(--accent-light-warm);
-        }
+        .dropdown-content a:last-child { border-bottom: none; }
 
         .show { display: block; }
+
+        /* --- Media Queries para Móviles Extra Pequeños --- */
+        @media (max-width: 400px) {
+            body { padding: 20px 10px; }
+            h1 { letter-spacing: 1px; }
+            .project-card span { font-size: 1rem; }
+        }
     </style>
 </head>
 <body>
@@ -192,7 +204,7 @@
         <h1><span class="brand-fayersito">Fayersito</span><span class="brand-dev">Dev</span></h1>
         <div class="about-section">
             <h2>Sobre mi:</h2>
-            <p>Soy un joven con pasión por el mundo de la informática y la programación que en sus tiempos libres disfruta de crear proyectos de páginas web con ayuda de IA, he estudiado un GM de Sistemas y Redes y estoy estudiando de forma independiente desarrollo de videojuegos en Unity.</p>
+            <p>Soy un joven con pasión por el mundo de la informática y la programación. En mis tiempos libres disfruto crear proyectos web con ayuda de IA. He estudiado un GM de Sistemas y Redes y actualmente aprendo desarrollo de videojuegos en Unity.</p>
         </div>
     </header>
 
@@ -214,11 +226,11 @@
     </main>
 
     <div class="social-dropdown">
-        <button class="dropdown-btn" onclick="toggleDropdown()">Redes Sociales ▾</button>
         <div id="socialContent" class="dropdown-content">
             <a href="https://twitter.com/FDfayer" target="_blank">Twitter / X (@FDfayer)</a>
             <a href="https://instagram.com/FDfayer" target="_blank">Instagram (@FDfayer)</a>
         </div>
+        <button class="dropdown-btn" onclick="toggleDropdown()">Redes Sociales ▴</button>
     </div>
 
     <script>
@@ -226,6 +238,7 @@
             document.getElementById("socialContent").classList.toggle("show");
         }
 
+        // Cerrar si se hace clic fuera
         window.onclick = function(event) {
             if (!event.target.matches('.dropdown-btn')) {
                 var dropdowns = document.getElementsByClassName("dropdown-content");
