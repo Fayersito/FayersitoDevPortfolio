@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FayersitoDev | Portfolio</title>
+    
+    <link rel="icon" type="image/png" href="icon.png">
+
+    <style>
+        /* --- CSS: Estilos Globales y Colores --- */
+        :root {
+            --bg-color: #0d0d0d;
+            --card-bg: #1a1a1a;
+            --accent-warm: #ff8c42; 
+            --accent-light-warm: #ffb347; 
+            --dev-gray: #cccccc; 
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 15px;
+        }
+
+        /* --- Encabezado --- */
+        header {
+            text-align: center;
+            max-width: 750px;
+            margin-bottom: 40px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 8vw, 3rem);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .brand-fayersito {
+            color: var(--accent-light-warm);
+        }
+
+        .brand-dev {
+            color: var(--dev-gray);
+            font-weight: 300;
+        }
+
+        /* --- Sección Sobre Mí --- */
+        .about-section {
+            background: #1e1e1e; 
+            padding: 24px;
+            border-radius: 16px;
+            border-left: 4px solid var(--accent-light-warm);
+            line-height: 1.6;
+            box-shadow: 0 10px 25px rgba(255, 179, 71, 0.05); 
+            transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+            width: 100%;
+        }
+
+        .about-section:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(255, 179, 71, 0.12);
+        }
+
+        .about-section h2 {
+            font-size: 1rem;
+            color: var(--accent-light-warm);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .about-section p {
+            color: var(--text-dim);
+            font-size: 0.98rem;
+            text-align: left;
+        }
+
+        /* --- Proyectos --- */
+        .projects-container {
+            width: 100%;
+            max-width: 750px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 10px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            border: 1px solid #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: var(--transition);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-light-warm);
+            box-shadow: 0 10px 30px rgba(255, 179, 71, 0.1);
+        }
+
+        /* Header de la tarjeta */
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .project-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
+            object-fit: cover;
+            background: #282828;
+            flex-shrink: 0;
+            border: 1px solid #444;
+        }
+
+        .project-header-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .project-description {
+            font-size: 0.92rem;
+            color: var(--text-dim);
+            line-height: 1.45;
+        }
+
+        /* --- Mini Carrusel de Capturas --- */
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #121212;
+            border: 1px solid #2a2a2a;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            width: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            position: relative;
+            aspect-ratio: 16 / 9;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Botones de navegación del carrusel */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.65);
+            color: var(--accent-light-warm);
+            border: 1px solid rgba(255, 179, 71, 0.3);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: var(--transition);
+            z-index: 2;
+            user-select: none;
+            backdrop-filter: blur(4px);
+        }
+
+        .carousel-btn:hover {
+            background: var(--accent-light-warm);
+            color: #000;
+        }
+
+        .carousel-btn.prev { left: 10px; }
+        .carousel-btn.next { right: 10px; }
+
+        /* Puntos indicadores */
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 2;
+            background: rgba(0,0,0,0.5);
+            padding: 4px 10px;
+            border-radius: 12px;
+            backdrop-filter: blur(4px);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            background: var(--accent-light-warm);
+            width: 20px;
+            border-radius: 4px;
+        }
+
+        /* Botón de enlace */
+        .card-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 4px;
+        }
+
+        .btn-visit {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 140, 66, 0.1);
+            color: var(--accent-light-warm);
+            border: 1px solid var(--accent-light-warm);
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .btn-visit:hover {
+            background: var(--accent-light-warm);
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 179, 71, 0.3);
+        }
+
+        /* --- Redes Sociales Dropdown --- */
+        .social-dropdown {
+            margin-top: 50px;
+            position: relative;
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .dropdown-btn {
+            width: 100%;
+            padding: 14px 20px;
+            background: transparent;
+            border: 1px solid var(--accent-light-warm);
+            color: var(--accent-light-warm);
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: var(--transition);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dropdown-btn:hover {
+            background: var(--accent-light-warm);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(255, 179, 71, 0.2);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            bottom: 115%;
+            left: 0;
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 -8px 24px rgba(0,0,0,0.6);
+            z-index: 10;
+            border: 1px solid #333;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: var(--text-main);
+            padding: 14px 18px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            border-bottom: 1px solid #282828;
+        }
+
+        .dropdown-content a:hover {
+            background: #252525;
+            color: var(--accent-light-warm);
+            padding-left: 22px;
+        }
+
+        .dropdown-content a:last-child { border-bottom: none; }
+
+        .show { display: block; }
+
+        /* --- Media Queries --- */
+        @media (max-width: 550px) {
+            body { padding: 25px 12px; }
+            .project-card { padding: 15px; }
+            .card-header { gap: 12px; }
+            .project-icon { width: 50px; height: 50px; }
+            .project-title { font-size: 1.15rem; }
+            .project-description { font-size: 0.88rem; }
+            .carousel-btn { width: 30px; height: 30px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><span class="brand-fayersito">Fayersito</span><span class="brand-dev">Dev</span></h1>
+        <div class="about-section">
+            <h2>Sobre mí:</h2>
+            <p>Soy un joven con pasión por el mundo de la informática y la programación. En mis tiempos libres disfruto crear proyectos web con ayuda de IA. He estudiado un GM de Sistemas y Redes y actualmente aprendo desarrollo de videojuegos en Unity.</p>
+        </div>
+    </header>
+
+    <main class="projects-container">
+
+        <!-- 1. FLevelingProject -->
+        <article class="project-card">
+            <div class="card-header">
+                <img src="flevelingicon.png" alt="FLeveling" class="project-icon" onerror="this.src='https://placehold.co/120x120/ff8c42/0d0d0d?text=FLP'">
+                <div class="project-header-info">
+                    <h3 class="project-title">FLevelingProject</h3>
+                    <p class="project-description">Simulador RPG de estadísticas IRL basado en la obra SOLO LEVELING con inspiraciones de RPG's Tradicionales y juegos estilo SOULS y PERSONA.</p>
+                </div>
+            </div>
+            
+            <div class="carousel-wrapper" id="carousel-1">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="fleveling_cap1.png" alt="FLeveling Captura 1" onerror="this.src='https://placehold.co/800x450/1e1e1e/ffb347?text=FLeveling+Gameplay+1'">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="fleveling_cap2.png" alt="FLeveling Captura 2" onerror="this.src='https://placehold.co/800x450/1e1e1e/ff8c42?text=FLeveling+Stats+System'">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="fleveling_cap3.png" alt="FLeveling Captura 3" onerror="this.src='https://placehold.co/800x450/1e1e1e/ffb347?text=FLeveling+Dungeon+Combat'">
+                    </div>
+                </div>
+                <button class="carousel-btn prev" onclick="moveSlide('carousel-1', -1)">❮</button>
+                <button class="carousel-btn next" onclick="moveSlide('carousel-1', 1)">❯</button>
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="goToSlide('carousel-1', 0)"></span>
+                    <span class="dot" onclick="goToSlide('carousel-1', 1)"></span>
+                    <span class="dot" onclick="goToSlide('carousel-1', 2)"></span>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <a href="https://fayersito.github.io/FLevelingProject/" class="btn-visit" target="_blank">
+                    Ver Proyecto ➔
+                </a>
+            </div>
+        </article>
+
+        <!-- 2. FAnimeList -->
+        <article class="project-card">
+            <div class="card-header">
+                <img src="fanimelis.png" alt="FAnimeList" class="project-icon" onerror="this.src='https://placehold.co/120x120/ff8c42/0d0d0d?text=FAL'">
+                <div class="project-header-info">
+                    <h3 class="project-title">FAnimeList</h3>
+                    <p class="project-description">Aplicación interactiva y lista personalizada para hacer seguimiento de tus animes preferidos de forma dinámica.</p>
+                </div>
+            </div>
+            
+            <div class="carousel-wrapper" id="carousel-2">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="fanimelist_cap1.png" alt="FAnimeList Captura 1" onerror="this.src='https://placehold.co/800x450/1e1e1e/ffb347?text=FAnimeList+Dashboard'">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="fanimelist_cap2.png" alt="FAnimeList Captura 2" onerror="this.src='https://placehold.co/800x450/1e1e1e/ff8c42?text=FAnimeList+Anime+Tracker'">
+                    </div>
+                </div>
+                <button class="carousel-btn prev" onclick="moveSlide('carousel-2', -1)">❮</button>
+                <button class="carousel-btn next" onclick="moveSlide('carousel-2', 1)">❯</button>
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="goToSlide('carousel-2', 0)"></span>
+                    <span class="dot" onclick="goToSlide('carousel-2', 1)"></span>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <a href="https://fayersito.github.io/FAnimeList/" class="btn-visit" target="_blank">
+                    Ver Proyecto ➔
+                </a>
+            </div>
+        </article>
+
+        <!-- 3. FShopTycoon -->
+        <article class="project-card">
+            <div class="card-header">
+                <img src="fshop.png" alt="FShopTycoon" class="project-icon" onerror="this.src='https://placehold.co/120x120/ff8c42/0d0d0d?text=FST'">
+                <div class="project-header-info">
+                    <h3 class="project-title">FShopTycoon</h3>
+                    <p class="project-description">Juego de simulación estilo Tycoon donde gestionas tu propia tienda, inventario y expansión del negocio.</p>
+                </div>
+            </div>
+            
+            <div class="carousel-wrapper" id="carousel-3">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="fshop_cap1.png" alt="FShopTycoon Captura 1" onerror="this.src='https://placehold.co/800x450/1e1e1e/ffb347?text=FShopTycoon+Store+View'">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="fshop_cap2.png" alt="FShopTycoon Captura 2" onerror="this.src='https://placehold.co/800x450/1e1e1e/ff8c42?text=FShopTycoon+Inventory+Management'">
+                    </div>
+                </div>
+                <button class="carousel-btn prev" onclick="moveSlide('carousel-3', -1)">❮</button>
+                <button class="carousel-btn next" onclick="moveSlide('carousel-3', 1)">❯</button>
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="goToSlide('carousel-3', 0)"></span>
+                    <span class="dot" onclick="goToSlide('carousel-3', 1)"></span>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <a href="https://fayersito.github.io/FShopTycoon/" class="btn-visit" target="_blank">
+                    Ver Proyecto ➔
+                </a>
+            </div>
+        </article>
+
+        <!-- 4. FDev-GTA-Valencia -->
+        <article class="project-card">
+            <div class="card-header">
+                <img src="fgta.png" alt="FDev GTA Valencia" class="project-icon" onerror="this.src='https://placehold.co/120x120/ff8c42/0d0d0d?text=GTA'">
+                <div class="project-header-info">
+                    <h3 class="project-title">FDev-GTA-Valencia</h3>
+                    <p class="project-description">Proyecto experimental inspirado en las mecánicas de GTA ambientado en el entorno de Valencia.</p>
+                </div>
+            </div>
+            
+            <div class="carousel-wrapper" id="carousel-4">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="fgta_cap1.png" alt="GTA Valencia Captura 1" onerror="this.src='https://placehold.co/800x450/1e1e1e/ffb347?text=GTA+Valencia+Open+World'">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="fgta_cap2.png" alt="GTA Valencia Captura 2" onerror="this.src='https://placehold.co/800x450/1e1e1e/ff8c42?text=GTA+Valencia+Vehicles'">
+                    </div>
+                </div>
+                <button class="carousel-btn prev" onclick="moveSlide('carousel-4', -1)">❮</button>
+                <button class="carousel-btn next" onclick="moveSlide('carousel-4', 1)">❯</button>
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="goToSlide('carousel-4', 0)"></span>
+                    <span class="dot" onclick="goToSlide('carousel-4', 1)"></span>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <a href="https://fayersito.github.io/FDev-GTA-Valencia" class="btn-visit" target="_blank">
+                    Ver Proyecto ➔
+                </a>
+            </div>
+        </article>
+
+        <!-- 5. FDAgar -->
+        <article class="project-card">
+            <div class="card-header">
+                <img src="agar.png" alt="FDAgar" class="project-icon" onerror="this.src='https://placehold.co/120x120/ff8c42/0d0d0d?text=AGAR'">
+                <div class="project-header-info">
+                    <h3 class="project-title">FDAgar</h3>
+                    <p class="project-description">Juego multijugador/arcade de células al estilo Agario con mecánicas dinámicas e interactividad rápida.</p>
+                </div>
+            </div>
+            
+            <div class="carousel-wrapper" id="carousel-5">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="fdagar_cap1.png" alt="FDAgar Captura 1" onerror="this.src='https://placehold.co/800x450/1e1e1e/ffb347?text=FDAgar+Cell+Arena'">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="fdagar_cap2.png" alt="FDAgar Captura 2" onerror="this.src='https://placehold.co/800x450/1e1e1e/ff8c42?text=FDAgar+Multiplayer'">
+                    </div>
+                </div>
+                <button class="carousel-btn prev" onclick="moveSlide('carousel-5', -1)">❮</button>
+                <button class="carousel-btn next" onclick="moveSlide('carousel-5', 1)">❯</button>
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="goToSlide('carousel-5', 0)"></span>
+                    <span class="dot" onclick="goToSlide('carousel-5', 1)"></span>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <a href="https://fayersito.github.io/FDAgar/" class="btn-visit" target="_blank">
+                    Ver Proyecto ➔
+                </a>
+            </div>
+        </article>
+
+        <!-- 6. FDev-FNAF -->
+        <article class="project-card">
+            <div class="card-header">
+                <img src="fnaf.png" alt="FDev FNAF" class="project-icon" onerror="this.src='https://placehold.co/120x120/ff8c42/0d0d0d?text=FNAF'">
+                <div class="project-header-info">
+                    <h3 class="project-title">FDev-FNAF</h3>
+                    <p class="project-description">Recreación interactiva de terror inspirada en las mecánicas de supervivencia y cámaras de Five Nights at Freddy's.</p>
+                </div>
+            </div>
+            
+            <div class="carousel-wrapper" id="carousel-6">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="fnaf_cap1.png" alt="FNAF Captura 1" onerror="this.src='https://placehold.co/800x450/1e1e1e/ffb347?text=FNAF+Security+Cameras'">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="fnaf_cap2.png" alt="FNAF Captura 2" onerror="this.src='https://placehold.co/800x450/1e1e1e/ff8c42?text=FNAF+Night+Survival'">
+                    </div>
+                </div>
+                <button class="carousel-btn prev" onclick="moveSlide('carousel-6', -1)">❮</button>
+                <button class="carousel-btn next" onclick="moveSlide('carousel-6', 1)">❯</button>
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="goToSlide('carousel-6', 0)"></span>
+                    <span class="dot" onclick="goToSlide('carousel-6', 1)"></span>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <a href="https://fayersito.github.io/FDev-FNAF/" class="btn-visit" target="_blank">
+                    Ver Proyecto ➔
+                </a>
+            </div>
+        </article>
+
+        <!-- 7. FDev-FinaLike -->
+        <article class="project-card">
+            <div class="card-header">
+                <img src="finalike.png" alt="FDev FinaLike" class="project-icon" onerror="this.src='https://placehold.co/120x120/ff8c42/0d0d0d?text=FF'">
+                <div class="project-header-info">
+                    <h3 class="project-title">FDev-FinaLike</h3>
+                    <p class="project-description">Aventura interactiva RPG inspirada en la saga clásica de Final Fantasy y combates por turnos.</p>
+                </div>
+            </div>
+            
+            <div class="carousel-wrapper" id="carousel-7">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="finalike_cap1.png" alt="FinaLike Captura 1" onerror="this.src='https://placehold.co/800x450/1e1e1e/ffb347?text=FinaLike+Turn-Based+Combat'">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="finalike_cap2.png" alt="FinaLike Captura 2" onerror="this.src='https://placehold.co/800x450/1e1e1e/ff8c42?text=FinaLike+World+Map'">
+                    </div>
+                </div>
+                <button class="carousel-btn prev" onclick="moveSlide('carousel-7', -1)">❮</button>
+                <button class="carousel-btn next" onclick="moveSlide('carousel-7', 1)">❯</button>
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="goToSlide('carousel-7', 0)"></span>
+                    <span class="dot" onclick="goToSlide('carousel-7', 1)"></span>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <a href="https://fayersito.github.io/FDev-FinaLike/" class="btn-visit" target="_blank">
+                    Ver Proyecto ➔
+                </a>
+            </div>
+        </article>
+
+        <!-- 8. FSurvivor -->
+        <article class="project-card">
+            <div class="card-header">
+                <img src="fsurvivor.png" alt="FSurvivor" class="project-icon" onerror="this.src='https://placehold.co/120x120/ff8c42/0d0d0d?text=FS'">
+                <div class="project-header-info">
+                    <h3 class="project-title">FSurvivor</h3>
+                    <p class="project-description">Juego de supervivencia estilo roguelite con hordas de enemigos y mejoras progresivas.</p>
+                </div>
+            </div>
+            
+            <div class="carousel-wrapper" id="carousel-8">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="fsurvivor_cap1.png" alt="FSurvivor Captura 1" onerror="this.src='https://placehold.co/800x450/1e1e1e/ffb347?text=FSurvivor+Horde+Gameplay'">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="fsurvivor_cap2.png" alt="FSurvivor Captura 2" onerror="this.src='https://placehold.co/800x450/1e1e1e/ff8c42?text=FSurvivor+Upgrades+Menu'">
+                    </div>
+                </div>
+                <button class="carousel-btn prev" onclick="moveSlide('carousel-8', -1)">❮</button>
+                <button class="carousel-btn next" onclick="moveSlide('carousel-8', 1)">❯</button>
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="goToSlide('carousel-8', 0)"></span>
+                    <span class="dot" onclick="goToSlide('carousel-8', 1)"></span>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <a href="https://fayersito.github.io/FSurvivor/" class="btn-visit" target="_blank">
+                    Ver Proyecto ➔
+                </a>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- Redes Sociales Dropdown -->
+    <div class="social-dropdown">
+        <div id="socialContent" class="dropdown-content">
+            <a href="https://twitter.com/FDfayer" target="_blank">
+                <span>🐦</span> Twitter / X (@FDfayer)
+            </a>
+            <a href="https://instagram.com/FDfayer" target="_blank">
+                <span>📷</span> Instagram (@FDfayer)
+            </a>
+        </div>
+        <button class="dropdown-btn" onclick="toggleDropdown()">
+            Redes Sociales ▴
+        </button>
+    </div>
+
+    <script>
+        // Objeto para guardar el índice actual de cada carrusel
+        const carouselStates = {};
+
+        // Función para mover diapositivas
+        function moveSlide(carouselId, direction) {
+            const wrapper = document.getElementById(carouselId);
+            if (!wrapper) return;
+
+            const track = wrapper.querySelector('.carousel-track');
+            const slides = wrapper.querySelectorAll('.carousel-slide');
+            const dots = wrapper.querySelectorAll('.dot');
+            const totalSlides = slides.length;
+
+            if (!(carouselId in carouselStates)) {
+                carouselStates[carouselId] = 0;
+            }
+
+            // Calcular nuevo índice
+            let currentIndex = carouselStates[carouselId] + direction;
+            if (currentIndex < 0) {
+                currentIndex = totalSlides - 1;
+            } else if (currentIndex >= totalSlides) {
+                currentIndex = 0;
+            }
+
+            carouselStates[carouselId] = currentIndex;
+            updateCarouselUI(track, dots, currentIndex);
+        }
+
+        // Función para ir directamente a un slide
+        function goToSlide(carouselId, index) {
+            const wrapper = document.getElementById(carouselId);
+            if (!wrapper) return;
+
+            const track = wrapper.querySelector('.carousel-track');
+            const dots = wrapper.querySelectorAll('.dot');
+
+            carouselStates[carouselId] = index;
+            updateCarouselUI(track, dots, index);
+        }
+
+        // Actualizar posicionamiento del track y los puntos
+        function updateCarouselUI(track, dots, index) {
+            track.style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // Toggle para Dropdown de Redes Sociales
+        function toggleDropdown() {
+            document.getElementById("socialContent").classList.toggle("show");
+        }
+
+        // Cerrar dropdown si se hace clic fuera
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropdown-btn') && !event.target.closest('.dropdown-btn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
